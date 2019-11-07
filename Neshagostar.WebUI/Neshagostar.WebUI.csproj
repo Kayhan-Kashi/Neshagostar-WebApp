@@ -937,6 +937,9 @@
     <Content Include="Areas\Commerce\Views\TendersRelated\Tenders\EditTenderItem.cshtml" />
     <Content Include="Areas\Commerce\Views\OrdersRelated\Orders\Create.cshtml" />
     <Content Include="Areas\Commerce\Views\OrdersRelated\Orders\Index.cshtml" />
+    <Content Include="Areas\Commerce\Views\OrdersRelated\Orders\Edit.cshtml" />
+    <Content Include="Areas\Commerce\Views\OrdersRelated\Orders\Details.cshtml" />
+    <Content Include="Areas\Commerce\Views\OrdersRelated\Orders\Add.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
@@ -948,7 +951,9 @@
     <Content Include="Scripts\NeshagostarScripts\Commerce\CreateInquiry.js" />
     <Content Include="Scripts\NeshagostarScripts\Commerce\EditInquiry.js" />
     <Content Include="Scripts\NeshagostarScripts\Commerce\IndexInquiry.js" />
+    <Content Include="Scripts\NeshagostarScripts\Commerce\OrdersRelated\AddOrder.js" />
     <Content Include="Scripts\NeshagostarScripts\Commerce\OrdersRelated\CreateOrder.js" />
+    <Content Include="Scripts\NeshagostarScripts\Commerce\OrdersRelated\EditOrder.js" />
     <Content Include="Scripts\NeshagostarScripts\Commerce\Tenders\CreateTender.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />

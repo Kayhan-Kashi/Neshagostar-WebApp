@@ -1,9 +1,11 @@
 ﻿using Neshagostar.DAL.DataModel;
 using Neshagostar.DAL.DataModel.CommerceRelated.OrdersRelated;
 using Neshagostar.WebUI.Areas.Commerce.Models.OrdersRelated;
+using Neshagostar.WebUI.Infrastructure.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -72,6 +74,102 @@ namespace Neshagostar.WebUI.Areas.Commerce.Controllers.OrdersRelated
         {
             ViewBag.Products = new SelectList(context.Products, "Id", "Name");
             return View("~/Areas/Commerce/Views/OrdersRelated/Orders/Create.cshtml");
+        }
+
+        public ActionResult Edit(Guid id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            OrderItem orderItem = context.OrderItems.Include("Product").Include("Order.Customer").Where(i => i.Id.Equals(id)).FirstOrDefault();
+            OrderBag orderBag = null;
+            if (orderItem != null)
+            {
+                orderBag = ConvertIOrderItemToOrderBag(orderItem);
+            }
+            return View("~/Areas/Commerce/Views/OrdersRelated/Orders/Edit.cshtml", orderBag);
+        }
+        //[ActivityLogger(ActivityName = "ویرایش", ModelNameBeingOperated = "استعلام")]
+        [HttpPost]
+
+        public ActionResult Edit(OrderBag bag)
+        {
+            OrderItem orderItem = context.OrderItems.Find(bag.Id);
+            orderItem.IsDispatched = bag.IsDispatched;
+            orderItem.ProductId = bag.ProductId;
+            orderItem.Amount = bag.Amount;
+            orderItem.Comments = bag.Comments;
+            orderItem.HDPEPrice = bag.HDPEPrice;
+            orderItem.NominalWeightPerMeter = bag.NominalWeightPerMeter;
+            orderItem.PricePerUnit = bag.PricePerUnit;
+            orderItem.TotalPrice = bag.Amount * bag.PricePerUnit;
+            orderItem.WasherPrice = bag.WasherPrice;
+            context.Entry(orderItem).State = System.Data.Entity.EntityState.Modified;
+            context.SaveChanges();
+            ViewBag.ModelOperatedId = orderItem.Id.ToString();
+            return RedirectToAction("Index", new { area = "commerce", controller = "Orders" });
+
+        }
+
+        public ActionResult Details(Guid id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            OrderItem orderItem = context.OrderItems.Include("Product").Include("Order.Customer").Where(i => i.Id.Equals(id)).FirstOrDefault();
+            OrderBag orderBag = null;
+            if (orderItem != null)
+            {
+                orderBag = ConvertIOrderItemToOrderBag(orderItem);
+            }
+            return View("~/Areas/Commerce/Views/OrdersRelated/Orders/Details.cshtml", orderBag);
+        }
+
+
+
+        public ActionResult Add(Guid orderId)
+        {
+            Order order = context.Orders.Include("Customer").Where(i => i.Id.Equals(orderId)).FirstOrDefault();
+            OrderBag bag = new OrderBag
+            {
+                OrderId = order.Id,
+                CustomerId = order.CustomerId,
+                CustomerName = order.Customer.Name,
+                CustomerTel = order.Customer.TelephoneNumber,
+                CustomerCity = order.Customer.City
+            };
+            return View("~/Areas/Commerce/Views/OrdersRelated/Orders/Add.cshtml", bag);
+        }
+
+        [HttpPost]
+     //   [ActivityLogger(ActivityName = "اضافه", ModelNameBeingOperated = "استعلام")]
+        public ActionResult Add(OrderBag bag)
+        {
+            OrderItem item = new OrderItem()
+            {
+                Id = Guid.NewGuid(),
+                Amount = bag.Amount,
+                Comments = bag.Comments,
+                HDPEPrice = bag.HDPEPrice,
+                OrderId = bag.OrderId,
+                IsDispatched = bag.IsDispatched,
+                NominalWeightPerMeter = bag.NominalWeightPerMeter,
+                PricePerUnit = bag.PricePerUnit,
+                TotalWeight = bag.TotalWeight,
+                ProductId = bag.ProductId,
+                WasherPrice = bag.WasherPrice,
+                TotalPrice = (bag.Amount * bag.PricePerUnit)
+            };
+            context.OrderItems.Add(item);
+            context.SaveChanges();
+            ViewBag.ModelOperatedId = item.Id;
+            return RedirectToAction("Index", new { area = "commerce", controller = "Orders" });
         }
 
 
@@ -181,6 +279,7 @@ namespace Neshagostar.WebUI.Areas.Commerce.Controllers.OrdersRelated
             return new OrderBag
             {
                 CustomerId = item.Order.CustomerId,
+                OrderId = item.OrderId,
                 CustomerName = item.Order.Customer.Name,
                 CustomerCity = item.Order.Customer.City,
                 CustomerTel = item.Order.Customer.TelephoneNumber,
@@ -232,6 +331,14 @@ namespace Neshagostar.WebUI.Areas.Commerce.Controllers.OrdersRelated
             }
 
             return days;
+        }
+
+        public JsonResult GetProductsChosen(Guid orderId)
+        {
+            var orderItems = context.Orders.Include("OrderItems.Product").Where(i => i.Id.Equals(orderId)).FirstOrDefault().OrderItems.ToList();
+
+
+            return Json(orderItems.Select(i => new { id = i.ProductId }), JsonRequestBehavior.AllowGet);
         }
 
 

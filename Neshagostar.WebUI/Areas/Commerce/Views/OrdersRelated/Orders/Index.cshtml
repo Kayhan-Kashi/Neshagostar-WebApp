@@ -141,14 +141,14 @@
                         }
 
                         <td>
-                            @Html.ActionLink("ویرایش", "Edit", new { area = "Commerce", controller = "Inquiries", id = orderItem.Id }, new { style = "font-size:12px;" }) |
-                            @Html.ActionLink("جزئیات", "Details", new { area = "Commerce", controller = "Inquiries", id = orderItem.Id }, new { style = "font-size:12px;" })
+                            @Html.ActionLink("ویرایش", "Edit", new { area = "Commerce", controller = "Orders", id = orderItem.Id }, new { style = "font-size:12px;" }) |
+                            @Html.ActionLink("جزئیات", "Details", new { area = "Commerce", controller = "Orders", id = orderItem.Id }, new { style = "font-size:12px;" })
                         </td>
                         @{
                             if (list.IndexOf(orderItem) == 0)
                             {
                                 <td rowspan="@(list.Count)" style="vertical-align:middle;text-align:center;">
-                                    @Html.ActionLink("اضافه", "Add", new { inquiryId = orderItem.InquiryId }, new { style = "font-size:14px;" })
+                                    @Html.ActionLink("اضافه", "Add", new { orderId = orderItem.OrderId }, new { style = "font-size:14px;" })
                                 </td>
                             }
                         }
