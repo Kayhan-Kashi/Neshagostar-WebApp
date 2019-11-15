@@ -13,7 +13,7 @@
 
 </script>
 
-<h2 style="padding-right:0px;margin-bottom:2%">ثبت استعلام  </h2>
+<h2 style="padding-right:0px;margin-bottom:2%">اضافه کردن آیتم سفارش</h2>
 <script>
     var productId = "@Model.ProductId";
     var productName = "@Model.ProductName";
@@ -100,50 +100,44 @@
         </div>
     </div>
 
-    <div class="col-md-8 well">
-        <div class="col-md-12">
-            <div class="form-group">
 
-                <div class="col-md-10">
-                    @Html.Label("آیا ابلاغ شود ؟ ", htmlAttributes: new { @class = "control-label col-md-3" })
-                    @if (Model.IsSuccessful)
-                    {
-                        <span>بله</span>
-                        @Html.RadioButtonFor(model => model.IsDispatched, true, new { @checked = true, style = "margin-left:1%;" })
-                        <span>خیر</span>
-                        @Html.RadioButtonFor(model => model.IsDispatched, false)
-                    }
-                    else
-                    {
-                        <span>بله</span>
-                        @Html.RadioButtonFor(model => model.IsDispatched, true, new { style = "margin-left:1%;" })
-                        <span>خیر</span>
-                        @Html.RadioButtonFor(model => model.IsDispatched, false, new { @checked = true })
 
-                    }
+    <div class="col-md-8 well ">
+
+        <div class="col-md-12 form-group">
+            @Html.Label("ضرب العجل دریافت محصول از سوی مشتری :  ", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:5px;" })
+            @Html.TextBox("DateToRecieve", null, htmlAttributes: new { @class = "form-control col-md-3", placeholder = "139x/xx/xx ", style = "text-align:center;width:20%;", id = "dateToRecieve" })
+
+        </div>
+
+        <div class="col-md-12 form-group">
+
+            @Html.Label("توضیح در مورد محصول سفارشی ", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:1%" })
+
+            @Html.TextArea("Comments", null, new { @class = "form-control col-md-5", id = "orderItem_comments", style = "width:100%;" })
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    @*<div>
+            <div class="col-md-8 well" style="padding:-20px;">
+                <div class="form-group">
+
+                    @Html.Label("توضیحات", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:1%" })
+
+                    @Html.TextArea("Comments", null, new { @class = "form-control col-md-5", id = "comments", style = "width:100%;" })
 
 
                 </div>
             </div>
-
-        </div>
-
-
-    </div>
-
-
-    <div>
-        <div class="col-md-8 well" style="padding:-20px;">
-            <div class="form-group">
-
-                @Html.Label("توضیحات", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:1%" })
-
-                @Html.TextArea("Comments", null, new { @class = "form-control col-md-5", id = "comments", style = "width:100%;" })
-
-
-            </div>
-        </div>
-    </div>
+        </div>*@
 
 
 

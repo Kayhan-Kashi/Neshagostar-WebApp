@@ -29,20 +29,26 @@
         @Html.Hidden("OrderId", null, new { id = "inquiryId" })
         <div class="col-md-12 well" style="padding-left:30px;">
             <div class="form-group">
-                <div class="col-md-4">
+                <div class="col-md-4" >
                     @Html.Label("نام خریدار", htmlAttributes: new { @class = "control-label col-md-4", style = "text-align:center;padding-top:5px" })
                     <div>
-                        @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", dir = "rtl", id = "customer_name", style = "width:50%", @readonly = "true" } })
+                        @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", dir = "rtl", id = "customer_name", style = "text-align:center;width:60%", @readonly = "true" } })
                     </div>
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     @Html.Label("شماره تماس", htmlAttributes: new { @class = "control-label col-md-4", style = "text-align:center;;padding-top:5px" })
-                    @Html.EditorFor(model => model.CustomerTel, new { htmlAttributes = new { @class = "form-control", dir = "rtl", id = "customer_tel", style = "width:50%;", @readonly = "true" } })
+                    @Html.EditorFor(model => model.CustomerTel, new { htmlAttributes = new { @class = "form-control", dir = "rtl", id = "customer_tel", style = "text-align:center;width:50%;", @readonly = "true" } })
                 </div>
-                <div class="col-md-4">
-                    @Html.Label("محل", htmlAttributes: new { @class = "control-label col-md-4", style = "text-align:center;;padding-top:5px" })
-                    @Html.EditorFor(model => model.CustomerCity, new { htmlAttributes = new { @class = "form-control", dir = "rtl", id = "customer_address", style = "width:50%;", @readonly = "true" } })
+                <div class="col-md-2">
+                    @Html.Label("محل", htmlAttributes: new { @class = "control-label col-md-3", style = "text-align:center;;padding-top:5px" })
+                    @Html.EditorFor(model => model.CustomerCity, new { htmlAttributes = new { @class = "form-control", dir = "rtl", id = "customer_address", style = "text-align:center;width:60%;", @readonly = "true" } })
+                </div>
+                <div class="col-md-3">
+
+                    @Html.Label("تاریخ دریافت سفارش ", htmlAttributes: new { @class = "control-label col-md-6", style = "margin-top:5px;" })
+                    @Html.TextBox("Datetime", null, htmlAttributes: new { @class = "form-control col-md-4", placeholder = "13xx/xx/xx ", style = "text-align:center;width:40%;", id = "date" })
+
                 </div>
 
             </div>
@@ -95,34 +101,73 @@
             </div>
         </div>
     </div>
+    <div class="col-md-8 well ">
 
-    <div class="col-md-8 well">
-        <div class="col-md-12">
-            <div class="form-group">
+        <div class="col-md-12 form-group">
+            @Html.Label("ضرب العجل دریافت محصول از سوی مشتری :  ", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:5px;" })
+            @Html.TextBox("DateToRecieve", null, htmlAttributes: new { @class = "form-control col-md-3", placeholder = "139x/xx/xx ", style = "text-align:center;width:20%;", id = "dateToRecieve" })
+     
+        </div>
 
-                <div class="col-md-10">
-                    @Html.Label("آیا ابلاغ شده ؟ ", htmlAttributes: new { @class = "control-label col-md-3" })
-                    @if (Model.IsDispatched)
-                    {
-                        <span>بله</span>
-                        @Html.RadioButtonFor(model => model.IsDispatched, true, new { @checked = true, style = "margin-left:1%;" })
-                        <span>خیر</span>
-                        @Html.RadioButtonFor(model => model.IsDispatched, false)
-                    }
-                    else
-                    {
-                        <span>بله</span>
-                        @Html.RadioButtonFor(model => model.IsDispatched, true, new { style = "margin-left:1%;" })
-                        <span>خیر</span>
-                        @Html.RadioButtonFor(model => model.IsDispatched, false, new { @checked = true })
+        <div class="col-md-12 form-group">
 
-                    }
+            @Html.Label("توضیح در مورد محصول سفارشی ", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:1%" })
 
+            @Html.TextArea("Comments", null, new { @class = "form-control col-md-5", id = "comments", style = "width:100%;" })
 
-                </div>
-            </div>
 
         </div>
+
+
+    </div>
+
+    <div class="col-md-8 well">
+
+        <div class="col-md-12 form-group">
+
+            <div class="col-md-4" style="margin-top:5px;">
+                @Html.Label("آیا ابلاغ شده ؟ ", htmlAttributes: new { @class = "control-label col-md-6" })
+                @if (Model.IsDispatched)
+                {
+                    <span>بله</span>
+                    @Html.RadioButtonFor(model => model.IsDispatched, true, new { @checked = true, style = "margin-left:1%;margin-top:2px;" })
+                    <span>خیر</span>
+                    @Html.RadioButtonFor(model => model.IsDispatched, false, new { style = "margin-top:2px;" })
+                }
+                else
+                {
+                    <span>بله</span>
+                    @Html.RadioButtonFor(model => model.IsDispatched, true, new { style = "margin-left:1%;margin-top:2px;" })
+                    <span>خیر</span>
+                    @Html.RadioButtonFor(model => model.IsDispatched, false, new { @checked = true, style = "margin-top:2px;" })
+
+                }
+
+
+            </div>
+            <div class="col-md-4">
+
+                @Html.Label("متراژ ابلاغی ", htmlAttributes: new { @class = "control-label col-md-6", style = "margin-top:5px;" })
+                @Html.TextBox("AmountDispatched", null, htmlAttributes: new { @class = "form-control col-md-4", placeholder = "متراژ ابلاغی ", style = "text-align:center;width:50%;", id = "amountDispatched" })
+
+            </div>
+
+            <div class="col-md-4">
+
+                @Html.Label("تاریخ ابلاغ ", htmlAttributes: new { @class = "control-label col-md-5", style = "margin-top:5px;" })
+                @Html.TextBox("DateOfDispatch", null, htmlAttributes: new { @class = "form-control col-md-5", placeholder = "139x/xx/xx ", style = "text-align:center;width:50%;", id = "dateOfDispatch" })
+
+            </div>
+            <div class="col-md-12 form-group" >
+
+                @Html.Label("توضیح در مورد ابلاغ محصول ", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:3%" })
+
+                @Html.TextArea("DispatchComments", null, new { @class = "form-control col-md-5", id = "dispatchComments", style = "width:100%;" })
+
+            </div>
+        </div>
+
+
     </div>
 
 
@@ -130,7 +175,7 @@
         <div class="col-md-8 well" style="padding:-20px;">
             <div class="form-group">
 
-                @Html.Label("توضیحات", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:1%" })
+                @Html.Label(" توضیح کل سفارش", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:1%" })
 
                 @Html.TextArea("Comments", null, new { @class = "form-control col-md-5", id = "comments", style = "width:100%;" })
 
@@ -155,6 +200,11 @@
 <div style="padding-right:20px;padding-top:30px;">
     @Html.ActionLink("بازگشت به لیست سفارش‌ها", "Index", null, new { style = "font-size:18px;" })
 </div>
+
+
+<script type="text/javascript">
+
+</script>
 
 
 

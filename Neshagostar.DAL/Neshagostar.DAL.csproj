@@ -100,6 +100,8 @@
     <Compile Include="DataModel\PersonnelRelated\Department.cs" />
     <Compile Include="DataModel\PersonnelRelated\Personnel.cs" />
     <Compile Include="DataModel\PersonnelRelated\PersonnelRole.cs" />
+    <Compile Include="DataModel\StorageRelated\OrdersRelated\OrderItem.cs" />
+    <Compile Include="DataModel\StorageRelated\OrdersRelated\OrderItemSendingDetail.cs" />
     <Compile Include="FluentAPI\EntityTypeConfigs.cs" />
     <Compile Include="Migrations\201910251028547_mig1.cs" />
     <Compile Include="Migrations\201910251028547_mig1.Designer.cs">
@@ -157,6 +159,22 @@
     <Compile Include="Migrations\201911061558140_mig98.Designer.cs">
       <DependentUpon>201911061558140_mig98.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911091320124_mig8730.cs" />
+    <Compile Include="Migrations\201911091320124_mig8730.Designer.cs">
+      <DependentUpon>201911091320124_mig8730.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911101826204_mig8473.cs" />
+    <Compile Include="Migrations\201911101826204_mig8473.Designer.cs">
+      <DependentUpon>201911101826204_mig8473.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911101916513_mig84731.cs" />
+    <Compile Include="Migrations\201911101916513_mig84731.Designer.cs">
+      <DependentUpon>201911101916513_mig84731.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911121408509_mig567896.cs" />
+    <Compile Include="Migrations\201911121408509_mig567896.Designer.cs">
+      <DependentUpon>201911121408509_mig567896.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -206,6 +224,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911061558140_mig98.resx">
       <DependentUpon>201911061558140_mig98.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911091320124_mig8730.resx">
+      <DependentUpon>201911091320124_mig8730.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911101826204_mig8473.resx">
+      <DependentUpon>201911101826204_mig8473.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911101916513_mig84731.resx">
+      <DependentUpon>201911101916513_mig84731.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911121408509_mig567896.resx">
+      <DependentUpon>201911121408509_mig567896.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

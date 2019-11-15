@@ -1,4 +1,5 @@
 ﻿using Neshagostar.DAL.DataModel.CommerceRelated.ProductsRelated;
+using Neshagostar.DAL.DataModel.StorageRelated.OrdersRelated;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,14 +9,13 @@ using System.Threading.Tasks;
 
 namespace Neshagostar.DAL.DataModel.CommerceRelated.OrdersRelated
 {
-    public class OrderItem
+    public partial class OrderItem
     {
         #region Keys
         public Guid Id { get; set; }
         public Guid OrderId { get; set; }
         public Guid ProductId { get; set; }
         #endregion
-
 
         #region Commerce
         [Display(Name = "مقدار")]
@@ -36,11 +36,7 @@ namespace Neshagostar.DAL.DataModel.CommerceRelated.OrdersRelated
         [Display(Name = "قیمت واشر")]
         public double WasherPrice { get; set; }
 
-        [Display(Name = "آیا ابلاغ شده است ؟")]
-        public bool IsDispatched { get; set; }
 
-        [Display(Name = "مقدار ابلاغ شده")]
-        public double AmountDispatched { get; set; }
 
         [Display(Name = "قیمت کل آیتم سفارش ")]
         public double TotalPrice { get; set; }
@@ -54,21 +50,29 @@ namespace Neshagostar.DAL.DataModel.CommerceRelated.OrdersRelated
             }
         }
 
-        [Display(Name = "توضیحات")]
+        [Display(Name = "توضیح در مورد آیتم سفارش")]
         public string Comments { get; set; }
 
         [Display(Name = "تاریخ تحویل خواسته شده از سوی مشتری")]
         public string DateToRecieve { get; set; }
 
-        #endregion
+        [Display(Name = "توضیح در مورد ابلاغ محصول")]
+        public string DispatchComments { get; set; }
+        [Display(Name = "آیا ابلاغ شده است ؟")]
+        public bool IsDispatched { get; set; }
 
-        #region Warehouse
+        [Display(Name = "مقدار ابلاغ شده")]
+        public double AmountDispatched { get; set; }
+
+        [Display(Name = "تاریخ ابلاغ ")]
+        public string DateOfDispatch { get; set; }
 
         #endregion
 
         #region Navigational properties
         public Order Order { get; set; }
         public Product Product { get; set; }
+
         #endregion
     }
 }

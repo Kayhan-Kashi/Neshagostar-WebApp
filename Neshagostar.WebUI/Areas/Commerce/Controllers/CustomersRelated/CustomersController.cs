@@ -203,7 +203,7 @@ namespace Neshagostar.WebUI.Areas.Commerce.Controllers.CustomersRelated
         public JsonResult GetTelAndAddress(string name)
         {
             var customer = db.Customers.Where(c => c.Name == name).FirstOrDefault();
-            return Json(new { tel = customer.TelephoneNumber, address = customer.Address, id= customer.Id }, JsonRequestBehavior.AllowGet);
+            return Json(new { tel = customer.TelephoneNumber, address = customer.City, id= customer.Id }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetTelAndAddressForInquiry(string name)

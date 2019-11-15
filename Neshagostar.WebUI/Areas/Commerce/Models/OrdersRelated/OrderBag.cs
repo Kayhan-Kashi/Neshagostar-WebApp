@@ -19,6 +19,7 @@ namespace Neshagostar.WebUI.Areas.Commerce.Models.OrdersRelated
         public string DateTime { get; set; }
         public bool IsSuccessful { get; set; }
         public string ReasonForFailure { get; set; }
+        [Display(Name = "توضیح در مورد آیتم سفارش")]
         public string OrderItemComments { get; set; }
 
         public string ProductName { get; set; }
@@ -35,7 +36,13 @@ namespace Neshagostar.WebUI.Areas.Commerce.Models.OrdersRelated
         [DisplayFormat(DataFormatString = "{0:#,##0.##}")]
         public double PricePerKilo { get; set; }
 
-        [Display(Name = "توضیحات")]
+        [DisplayFormat(DataFormatString = "{0:#,##0.##}")]
+        [Display(Name = "قیمت کل سفارش")]
+        public double PriceSummation { get; set; }
+
+
+
+        [Display(Name = "توضیحات کل سفارش")]
         public string Comments { get; set; }
         [Display(Name = "وزن به ازای هر واحد")]
         public double NominalWeightPerMeter { get; set; }
@@ -58,5 +65,18 @@ namespace Neshagostar.WebUI.Areas.Commerce.Models.OrdersRelated
 
         [Display(Name = "آیا ابلاغ شده است")]
         public bool IsDispatched { get; set; }
+
+        [Display(Name = "تاریخ ابلاغ")]
+        public string DateOfDispatch { get; set; }
+
+        [Display(Name = "مقدار ابلاغی")]
+        public double AmountDispatched { get; set; }
+
+        [Display(Name = "توضیح در مورد ابلاغ محصول")]
+        public string DispatchComments { get; set; }
+
+
+        [Display(Name = "تاریخ تحویل خواسته شده از سوی مشتری")]
+        public string DateToRecieve { get; set; }
     }
 }

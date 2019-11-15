@@ -176,13 +176,18 @@ function getItemsFromInputs() {
     var hDPEPrice = $("#hDPEPrice").val();
     var washerPrice = $("#washerPrice").val();
     var totalWeight = $("#totalWeight").val();
+    var dateToRecieve = $("#dateToRecieve").val();
+    var orderItem_comments = $("#orderItem_comments").val();
+    alert(orderItem_comments);
+    alert(dateToRecieve);
     //var isUsedFromInventory = $("#isUsedFromInventory").val();  
     var orderItemTotalPrice = amountInMeters * pricePerMeter;
     var pricePerKilo = Math.ceil(orderItemTotalPrice / totalWeight);
     //var pricePerKiloCal = pricePerMeter / nominalWeightPerMeter;
     var ordItemDynamic = {
         productName: productName, productId: productId, amount: amountInMeters, pricePerUnit: pricePerMeter, nominalWeightPerMeter: nominalWeightPerMeter,
-        hDPEPrice: hDPEPrice, washerPrice: washerPrice, totalPrice: orderItemTotalPrice, pricePerKilo: pricePerKilo, totalWeight: totalWeight
+        hDPEPrice: hDPEPrice, washerPrice: washerPrice, totalPrice: orderItemTotalPrice, pricePerKilo: pricePerKilo, totalWeight: totalWeight,
+        DateToRecieve: dateToRecieve, comments: orderItem_comments, 
 
     }
 
@@ -254,6 +259,8 @@ function cleanInputs() {
     $("#washerPrice").val("");
     $("#amountUsedFromInventory").val("");
     $("#totalWeight").val("");
+    $("#dateToRecieve").val("");
+    $("#orderItem_comments").val("");
 }
 
 ///////////////////////////////////////////////////////////////// 
@@ -304,6 +311,8 @@ function createBindingObject() {
     var customerName = $("#customer_name").val();
     var contactNumber = $("#customer_tel").val();
     var address = $("#customer_city").val();
+    var datetime = $("#date").val();
+    alert(datetime);
     var comments = $("#comments").val();
     //var addedCostAmount = $("#addedCost").text().replace(',', '');
     var hasAddedCost = $("#hasAddedCost").is(":checked");
@@ -323,7 +332,8 @@ function createBindingObject() {
         hasAddedCost: hasAddedCost,
         priceWithoutAddedCost: priceWithoutAddedCost,
         finalPrice: finalPrice,
-        comments: comments
+        comments: comments,
+        date: datetime
     };
     //alert(obj.customerId);
     return obj;

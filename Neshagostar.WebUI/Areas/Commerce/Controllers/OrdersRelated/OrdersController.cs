@@ -97,16 +97,27 @@ namespace Neshagostar.WebUI.Areas.Commerce.Controllers.OrdersRelated
 
         public ActionResult Edit(OrderBag bag)
         {
-            OrderItem orderItem = context.OrderItems.Find(bag.Id);
+            OrderItem orderItem = context.OrderItems.Include("Order").Where(o => o.Id.Equals(bag.Id)).FirstOrDefault();
             orderItem.IsDispatched = bag.IsDispatched;
             orderItem.ProductId = bag.ProductId;
+            orderItem.NominalWeightPerMeter = bag.NominalWeightPerMeter;
+            orderItem.TotalWeight = bag.TotalWeight;
             orderItem.Amount = bag.Amount;
-            orderItem.Comments = bag.Comments;
+            orderItem.Order.Comments = bag.Comments;
             orderItem.HDPEPrice = bag.HDPEPrice;
             orderItem.NominalWeightPerMeter = bag.NominalWeightPerMeter;
             orderItem.PricePerUnit = bag.PricePerUnit;
             orderItem.TotalPrice = bag.Amount * bag.PricePerUnit;
             orderItem.WasherPrice = bag.WasherPrice;
+            orderItem.AmountDispatched = bag.AmountDispatched;
+            orderItem.DateToRecieve = FormatDate(bag.DateToRecieve);
+            orderItem.DateOfDispatch = FormatDate(bag.DateOfDispatch);
+            orderItem.DispatchComments = bag.DispatchComments;
+            orderItem.Comments = bag.Comments;
+            orderItem.Order.Date = FormatDate(bag.DateTime);
+           
+            
+
             context.Entry(orderItem).State = System.Data.Entity.EntityState.Modified;
             context.SaveChanges();
             ViewBag.ModelOperatedId = orderItem.Id.ToString();
@@ -164,7 +175,8 @@ namespace Neshagostar.WebUI.Areas.Commerce.Controllers.OrdersRelated
                 TotalWeight = bag.TotalWeight,
                 ProductId = bag.ProductId,
                 WasherPrice = bag.WasherPrice,
-                TotalPrice = (bag.Amount * bag.PricePerUnit)
+                TotalPrice = (bag.Amount * bag.PricePerUnit),
+                DateToRecieve = FormatDate(bag.DateToRecieve),               
             };
             context.OrderItems.Add(item);
             context.SaveChanges();
@@ -178,8 +190,7 @@ namespace Neshagostar.WebUI.Areas.Commerce.Controllers.OrdersRelated
         {
 
             order.Id = Guid.NewGuid();
-            order.Date = PersianDateTime.Now.ToString();
-            
+            order.Date = FormatDate(order.Date);
 
             foreach (OrderItem item in order.OrderItems)
             {
@@ -286,19 +297,26 @@ namespace Neshagostar.WebUI.Areas.Commerce.Controllers.OrdersRelated
                 Id = item.Id,
                 //InquiryId = item.Order.InquiryId,
                 ProductId = item.ProductId,
-                DateTime = item.Order.Date.Substring(0, 10),
+                DateTime = FormatDate(item.Order.Date),
                 ProductName = item.Product.Title,
                 Amount = item.Amount,
                 PricePerUnit = item.PricePerUnit,
                 PricePerKilo = item.PricePerKilo,
                 TotalPrice = item.TotalPrice,
                 TotalWeight = item.TotalWeight,
+                AmountDispatched = item.AmountDispatched,
                 HDPEPrice = item.HDPEPrice,
                 NominalWeightPerMeter = item.NominalWeightPerMeter,
-                Comments = item.Comments,
+                Comments = item.Order.Comments,
                 WasherPrice = item.WasherPrice,
                 InquiryTotalPrice = item.Order.OrderItemsPriceSummation,
-                IsDispatched = item.IsDispatched
+                IsDispatched = item.IsDispatched,
+                DateOfDispatch = item.DateOfDispatch,
+                DispatchComments = item.DispatchComments,
+                DateToRecieve = item.DateToRecieve,
+                OrderItemComments = item.Comments,
+                PriceSummation = item.Order.OrderItemsPriceSummation
+                
             };
         }
 
@@ -339,6 +357,17 @@ namespace Neshagostar.WebUI.Areas.Commerce.Controllers.OrdersRelated
 
 
             return Json(orderItems.Select(i => new { id = i.ProductId }), JsonRequestBehavior.AllowGet);
+        }
+
+        private string FormatDate(string date)
+        {
+            if (date == null)
+                return "1/1/1";
+
+
+            string[] strArray = date.Split('/');
+            string dateTime = new PersianDateTime(Int32.Parse(strArray[0]), Int32.Parse(strArray[1]), Int32.Parse(strArray[2])).Date.ToString().Substring(0, 10);
+            return dateTime;
         }
 
 

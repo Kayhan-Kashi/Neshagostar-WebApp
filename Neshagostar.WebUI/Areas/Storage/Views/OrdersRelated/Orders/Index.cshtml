@@ -1,4 +1,4 @@
-﻿@model List<List<Neshagostar.WebUI.Areas.Commerce.Models.OrdersRelated.OrderBag>>
+﻿@model List<List<Neshagostar.WebUI.Areas.Storage.Models.OrderItemStorageInfo>>
 
 @{
     ViewBag.Title = "Index";
@@ -20,10 +20,8 @@
 
 </script>
 
-<h1>لیست سفارشات</h1>
-<p style="font-size:20px;padding-top:10px;">
-    @Html.ActionLink("ثبت سفارش", "Create", new { area = "Commerce", controller = "Orders" })
-</p>
+<h1>لیست سفارشات ابلاغی</h1>
+
 <div style="overflow-y:auto;" class="table-bordered">
     <table class="table">
         <thead>
@@ -47,7 +45,7 @@
         </thead>
         <tr>
             <th style="text-align:center;font-size:15px;">
-                تاریخ
+                تاریخ ابلاغ
             </th>
             <th style="text-align:center;font-size:15px;">
                 نام مشتری
@@ -57,28 +55,19 @@
 
             </th>
             <th>
-                <label>متراژ</label>
+                <label> متراژ ابلاغی</label>
 
             </th>
             <th>
-                <label>قیمت هر متر</label>
-                @*@Html.DisplayName("قیمت هر متر")*@
+                <label>مقدار ارسال شده</label>
+       
             </th>
             <th>
-                <label>قیمت هر کیلو</label>
-                @*@Html.DisplayName("قیمت هر کیلو")*@
+                <label>مقدار مانده</label>      
             </th>
             <th>
-                <label>مبلغ کل آیتم</label>
-
+                <label>تاریخ آخرین ارسال</label>
             </th>
-            <th>
-                <label>آیا ابلاغ شده</label>
-            </th>
-            <th>
-                <label>مبلغ کل استعلام</label>
-            </th>
-
             <th></th>
         </tr>
         @{
@@ -95,7 +84,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => orderItem.DateTime, new { id = "date" })
+                            @Html.DisplayFor(modelItem => orderItem.DispatchDate, new { id = "date" })
                         </td>
                         <td style="text-align:center;width:230px;font-size:14px;">
                             @Html.DisplayFor(modelItem => orderItem.CustomerName, new { style = "text-align:right;font-size:19px;" })
@@ -104,62 +93,27 @@
                             @Html.DisplayFor(modelItem => orderItem.ProductName, new { style = "text-align:right;font-size:12px;" })
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => orderItem.Amount)
+                            @Html.DisplayFor(modelItem => orderItem.AmountDispatched)
                         </td>
                         <td style="text-align:center">
-                            @Html.DisplayFor(modelItem => orderItem.PricePerUnit)
+                            @Html.DisplayFor(modelItem => orderItem.AmountSent)
                         </td>
                         <td style="text-align:center">
-                            @Html.DisplayFor(modelItem => orderItem.PricePerKilo)
+                            @Html.DisplayFor(modelItem => orderItem.AmountNotSent)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => orderItem.TotalPrice)
-                        </td>
-                        @{
-                            if (orderItem.IsDispatched)
-                            {
-                                <td style="color:green">
-                                    بله
-                                </td>
-                            }
-                            else
-                            {
-                                <td style="color:red">
-                                    خیر
-                                </td>
-                            }
-                        }
-
-
-                        @{
-                            if (list.IndexOf(orderItem) == 0)
-                            {
-                                <td rowspan="@(list.Count)" style="vertical-align:middle;text-align:right;">
-                                    @Html.DisplayFor(modelItem => orderItem.PriceSummation)
-                                </td>
-                            }
-                        }
-
+                            @Html.DisplayFor(modelItem => orderItem.LastSendingDate)
+                        </td>                      
                         <td>
-                            @Html.ActionLink("ویرایش", "Edit", new { area = "Commerce", controller = "Orders", id = orderItem.Id }, new { style = "font-size:12px;" }) |
-                            @Html.ActionLink("جزئیات", "Details", new { area = "Commerce", controller = "Orders", id = orderItem.Id }, new { style = "font-size:12px;" })
+                            @Html.ActionLink("ویرایش", "Edit", new { area = "Storage", controller = "Orders", id = orderItem.OrderItemId }, new { style = "font-size:12px;" }) |
+                            @Html.ActionLink("جزئیات", "Details", new { area = "Storage", controller = "Orders", id = orderItem.OrderItemId }, new { style = "font-size:12px;" })
                         </td>
-                        @{
-                            if (list.IndexOf(orderItem) == 0)
-                            {
-                                <td rowspan="@(list.Count)" style="vertical-align:middle;text-align:center;">
-                                    @Html.ActionLink("اضافه", "Add", new { orderId = orderItem.OrderId }, new { style = "font-size:14px;" })
-                                </td>
-                            }
-                        }
                     </tr>
 
                 }
 
                 <tr>
                     <td style=@("background-color:rgb(" + x + "," + y + "," + z + ");")></td>
-                    <td style=@("background-color:rgb(" + x + "," + y + "," + z + ")")></td>
-                    <td style=@("background-color:rgb(" + x + "," + y + "," + z + ")")></td>
                     <td style=@("background-color:rgb(" + x + "," + y + "," + z + ")")></td>
                     <td style=@("background-color:rgb(" + x + "," + y + "," + z + ")")></td>
                     <td style=@("background-color:rgb(" + x + "," + y + "," + z + ")")></td>
@@ -350,16 +304,16 @@
                     for (var i = 0; i < data.length; i++) {
                         for (var j = 0; j < data[i].length; j++) {
                             //alert(data[i][j].CustomerName);
-                            var date = $("<td >" + data[i][j].DateTime + "</td>");
-                            var customer_name = $("<td style='text-align:center;width:280px;font-size:14px;'>" + data[i][j].CustomerName + "</td>");
-                            var product_name = $("<td style='text-align:center;width:280px;font-size:14px;'>" + data[i][j].ProductName + "</td>");
+                            var date = $("<td>" + data[i][j].DateTime + "</td>");
+                            var customer_name = $("<td>" + data[i][j].CustomerName + "</td>");
+                            var product_name = $("<td>" + data[i][j].ProductName + "</td>");
                             var amount = $("<td>" + (Math.trunc(data[i][j].Amount).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td>"));
                             var pricePerUnit = $("<td>" + (Math.trunc(data[i][j].PricePerUnit).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td>"));
                             var pricePerKilo = $("<td>" + (Math.trunc(data[i][j].PricePerKilo).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td>"));
                             var totalPrice = $("<td>" + (Math.trunc(data[i][j].TotalPrice).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td>"));
                             var isSuccessful = false;
 
-                            if (data[i][j].IsDispatched) {
+                            if (data[i][j].IsSuccessful) {
                                 //alert(data[i][j].IsSuccessful);
                                 isSuccessful = $("<td style='color: green'>بله</td>");
                             } else {

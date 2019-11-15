@@ -26,17 +26,23 @@
                 <div class="col-md-4">
                     @Html.Label("نام خریدار", htmlAttributes: new { @class = "control-label col-md-4", style = "text-align:center;padding-top:5px" })
                     <div>
-                        @Html.TextBox("CustomerName", "", new { @class = "form-control", dir = "rtl", id = "customer_name", style = "width:50%;" })
+                        @Html.TextBox("CustomerName", "", new { @class = "form-control", dir = "rtl", id = "customer_name", style = "width:60%;" })
                     </div>
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     @Html.Label("شماره تماس", htmlAttributes: new { @class = "control-label col-md-4", style = "text-align:center;;padding-top:5px" })
-                    @Html.EditorFor(model => model.Customer.TelephoneNumber, new { htmlAttributes = new { @class = "form-control", dir = "rtl", id = "customer_tel", style = "width:50%;", @readonly="true" } })
+                    @Html.EditorFor(model => model.Customer.TelephoneNumber, new { htmlAttributes = new { @class = "form-control", dir = "rtl", id = "customer_tel", style = "width:50%;", @readonly = "true" } })
                 </div>
-                <div class="col-md-4">
-                    @Html.Label("محل", htmlAttributes: new { @class = "control-label col-md-4", style = "text-align:center;;padding-top:5px" })
-                    @Html.EditorFor(model => model.Customer.City, new { htmlAttributes = new { @class = "form-control", dir = "rtl", id = "customer_city", style = "width:50%;", @readonly = "true" } })
+                <div class="col-md-2">
+                    @Html.Label("محل", htmlAttributes: new { @class = "control-label col-md-3", style = "text-align:center;;padding-top:5px" })
+                    @Html.EditorFor(model => model.Customer.City, new { htmlAttributes = new { @class = "form-control", dir = "rtl", id = "customer_city", style = "text-align:center;width:60%;", @readonly = "true" } })
+                </div>
+                <div class="col-md-3">
+
+                    @Html.Label("تاریخ دریافت سفارش ", htmlAttributes: new { @class = "control-label col-md-6", style = "margin-top:5px;" })
+                    @Html.TextBox("date", null, htmlAttributes: new { @class = "form-control col-md-4", placeholder = "13xx/xx/xx ", style = "text-align:center;width:40%;", id = "date" })
+
                 </div>
 
             </div>
@@ -90,13 +96,31 @@
             </div>
         </div>
     </div>
+    <div class="col-md-8 well ">
 
+        <div class="col-md-12 form-group">
+            @Html.Label("ضرب العجل دریافت محصول از سوی مشتری :  ", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:5px;" })
+            @Html.TextBox("DateToRecieve", null, htmlAttributes: new { @class = "form-control col-md-3", placeholder = "139x/xx/xx ", style = "text-align:center;width:20%;", id = "dateToRecieve" })
+
+        </div>
+
+        <div class="col-md-12 form-group">
+
+            @Html.Label("توضیح در مورد محصول سفارشی ", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:1%" })
+
+            @Html.TextArea("OrderItemComments", null, new { @class = "form-control col-md-5", id = "orderItem_comments", style = "width:100%;" })
+
+
+        </div>
+
+
+    </div>
 
     <div>
         <div class="col-md-8 well" style="padding:-20px;">
             <div class="form-group">
 
-                @Html.Label("توضیحات", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:1%" })
+                @Html.Label(" توضیح کل سفارش", htmlAttributes: new { @class = "control-label col-md-4", style = "margin-top:1%" })
 
                 @Html.TextArea("Comments", null, new { @class = "form-control col-md-5", id = "comments", style = "width:100%;" })
 
@@ -120,7 +144,7 @@
                         <th style="text-align:center;">وزن به ازای هر واحد</th>
                         <th style="text-align:center;">قیمت به ازای هر کیلو</th>
                         <th style="text-align:center;">قیمت مواد اولیه روز</th>
-                        <th style="text-align:center;">قیمت واشر</th>           
+                        <th style="text-align:center;">قیمت واشر</th>
                         <th style="text-align:center;">قیمت نهایی</th>
                         <th>عملیات</th>
                     </tr>
@@ -175,7 +199,7 @@
 
 
 <div style="padding-right:20px;padding-top:30px;">
-    @Html.ActionLink("بازگشت به لیست تماس‌ها", "Index", null, new { style = "font-size:18px;" })
+    @Html.ActionLink("بازگشت به لیست سفارش‌ها", "Index", null, new { style = "font-size:18px;" })
 </div>
 
 
@@ -203,7 +227,7 @@
             success: function (data) {
                 $("#customer_name").val(name);
                 $("#customer_tel").val(data.tel);
-                $("#customer_city").val(data.city);
+                $("#customer_city").val(data.address);
                 $("#customerId").val(data.id);
             }
         })

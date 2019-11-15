@@ -940,6 +940,10 @@
     <Content Include="Areas\Commerce\Views\OrdersRelated\Orders\Edit.cshtml" />
     <Content Include="Areas\Commerce\Views\OrdersRelated\Orders\Details.cshtml" />
     <Content Include="Areas\Commerce\Views\OrdersRelated\Orders\Add.cshtml" />
+    <Content Include="Areas\Storage\Views\web.config" />
+    <Content Include="Areas\Storage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Storage\Views\Shared\_StorageLayout.cshtml" />
+    <Content Include="Areas\Storage\Views\OrdersRelated\Orders\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
@@ -1032,6 +1036,9 @@
     <Compile Include="Areas\PersonnelManagement\Models\Roles\DedicatedRoleViewModel.cs" />
     <Compile Include="Areas\PersonnelManagement\Models\Roles\RoleViewModel.cs" />
     <Compile Include="Areas\PersonnelManagement\PersonnelManagementAreaRegistration.cs" />
+    <Compile Include="Areas\Storage\Controllers\OrdersRelated\OrdersController.cs" />
+    <Compile Include="Areas\Storage\Models\OrderItemStorageInfo.cs" />
+    <Compile Include="Areas\Storage\StorageAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

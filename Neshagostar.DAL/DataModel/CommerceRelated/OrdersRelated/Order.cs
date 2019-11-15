@@ -21,6 +21,8 @@ namespace Neshagostar.DAL.DataModel.CommerceRelated.OrdersRelated
         [Display(Name = "آیا ارزش افزوده دارد ؟")]
         public bool HasAddedCost { get; set; }
 
+        [Display(Name = "توضیحات سفارش")]
+        public string Comments { get; set; }
 
         [Display(Name= "مجموع قیمت آیتم های سفارش")]
         public double OrderItemsPriceSummation
